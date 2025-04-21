@@ -23,7 +23,7 @@ vectorstore = load_resume()
 
 qa_chain = RetrievalQA.from_chain_type(
     llm=HuggingFaceHub(
-        repo_id="mistralai/Mistral-7B-Instruct-v0.1",
+        repo_id="HuggingFaceH4/zephyr-7b-alpha",
         model_kwargs={"temperature": 0.7, "max_new_tokens": 512}
     ),
     retriever=vectorstore.as_retriever(),

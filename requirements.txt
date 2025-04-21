@@ -1,8 +1,9 @@
 streamlit
 faiss-cpu
 langchain
-langchain-community
 langchain-core
+langchain-community
 sentence-transformers
+huggingface_hub
 pypdf
 tiktoken

@@ -8,6 +8,9 @@ from langchain.llms import HuggingFaceHub
 
 st.title("Ask Andy AI")
 
+# Load Hugging Face token securely
+os.environ["HUGGINGFACEHUB_API_TOKEN"] = st.secrets["HUGGINGFACEHUB_API_TOKEN"]
+
 @st.cache_resource
 def load_resume():
     loader = PyPDFLoader("Social Media Marketing manager_Resume_Final.pdf")
@@ -15,9 +18,6 @@ def load_resume():
     embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
     vectorstore = FAISS.from_documents(documents, embeddings)
     return vectorstore
-
-# Load Hugging Face token from Streamlit secrets
-os.environ["HUGGINGFACEHUB_API_TOKEN"] = st.secrets["HUGGINGFACEHUB_API_TOKEN"]
 
 vectorstore = load_resume()
 

@@ -1,8 +1,8 @@
 streamlit
 faiss-cpu
-langchain
-langchain-core
-langchain-community
+langchain==0.1.14
+langchain-core==0.1.33
+langchain-community==0.0.21
 sentence-transformers
 huggingface_hub
 pypdf

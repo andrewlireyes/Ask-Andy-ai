@@ -8,7 +8,7 @@ from langchain.llms import HuggingFaceHub
 
 st.title("Ask Andy AI")
 
-# Load Hugging Face token securely
+# Load Hugging Face API key from Streamlit Secrets
 os.environ["HUGGINGFACEHUB_API_TOKEN"] = st.secrets["HUGGINGFACEHUB_API_TOKEN"]
 
 @st.cache_resource
@@ -21,15 +21,17 @@ def load_resume():
 
 vectorstore = load_resume()
 
+# Use a known-compatible model with Hugging Face hosted inference
 qa_chain = RetrievalQA.from_chain_type(
     llm=HuggingFaceHub(
-        repo_id="HuggingFaceH4/zephyr-7b-alpha",
+        repo_id="tiiuae/falcon-rw-1b",
         model_kwargs={"temperature": 0.7, "max_new_tokens": 512}
     ),
     retriever=vectorstore.as_retriever(),
     return_source_documents=False
 )
 
+# User interface
 query = st.text_input("Ask a question about Andy's resume:")
 if query:
     response = qa_chain.run(query)

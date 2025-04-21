@@ -1,8 +1,8 @@
-openai
-langchain-community
-langchain-core
-langchain
 streamlit
 faiss-cpu
+langchain
+langchain-community
+langchain-core
+sentence-transformers
 pypdf
 tiktoken

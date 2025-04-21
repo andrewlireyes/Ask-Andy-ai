@@ -1,4 +1,5 @@
 import streamlit as st
+import os
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.vectorstores import FAISS
 from langchain.embeddings import HuggingFaceEmbeddings
@@ -15,12 +16,15 @@ def load_resume():
     vectorstore = FAISS.from_documents(documents, embeddings)
     return vectorstore
 
+# Load Hugging Face token from Streamlit secrets
+os.environ["HUGGINGFACEHUB_API_TOKEN"] = st.secrets["HUGGINGFACEHUB_API_TOKEN"]
+
 vectorstore = load_resume()
 
 qa_chain = RetrievalQA.from_chain_type(
     llm=HuggingFaceHub(
-        repo_id="google/flan-t5-large",
-        model_kwargs={"temperature": 0, "max_length": 512}
+        repo_id="tiiuae/falcon-7b-instruct",
+        model_kwargs={"temperature": 0.7, "max_new_tokens": 512}
     ),
     retriever=vectorstore.as_retriever(),
     return_source_documents=False

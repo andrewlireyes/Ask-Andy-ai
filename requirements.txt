@@ -1,6 +1,7 @@
 streamlit
 faiss-cpu
-langchain==0.1.14
+langchain
+langchain-core
 langchain-community
 sentence-transformers
 huggingface_hub
